@@ -19,6 +19,8 @@ public class ButtonObj : MonoBehaviour, iInteract
         State = !State;
         Toggle();
         Toggled.Invoke(State);
+
+        Debug.Log("Clicked Button");
     }
 
     private void Toggle()

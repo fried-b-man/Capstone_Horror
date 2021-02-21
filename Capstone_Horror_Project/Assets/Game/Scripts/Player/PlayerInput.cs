@@ -7,11 +7,12 @@ public class PlayerInput : MonoBehaviour
 {
     public event Action<Vector3> Moved = delegate { };
     public event Action<Vector2> Moused = delegate { };
-    public event Action Clicked = delegate { };
+    public event Action LMBClicked = delegate { };
+    public event Action RMBClicked = delegate { };
 
     [SerializeField] private float mouseSensitivity = 100f;
 
-    private void FixedUpdate()
+    private void Update()
     {
         CheckMove();
         CheckMouse();
@@ -41,7 +42,7 @@ public class PlayerInput : MonoBehaviour
             playerMove -= transform.right;
         }
         
-        Moved.Invoke(playerMove);
+        Moved.Invoke(playerMove.normalized);
     }
 
     private void CheckMouse()
@@ -55,7 +56,12 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Clicked.Invoke();
+            LMBClicked.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            RMBClicked.Invoke();
         }
     }
 }
